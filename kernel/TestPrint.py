@@ -2,6 +2,7 @@ from Print import Print
 from Console import Console
 import unittest
 
+
 class TestPrint(unittest.TestCase):
     def test_execute_when_(self):
         console = Console()

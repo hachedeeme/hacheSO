@@ -1,5 +1,6 @@
 from Instruction import Instruction
 
+
 class Print(Instruction):
     def __init__(self, objToPrint, console):
         self.message = str(objToPrint)
