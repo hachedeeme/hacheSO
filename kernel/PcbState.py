@@ -11,3 +11,8 @@ class New(State):
 class Ready(State):
     def __init__(self):
         self.state = ''
+
+
+class Running(State):
+    def __init__(self):
+        self.state = ''

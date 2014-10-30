@@ -4,12 +4,14 @@ from Print import Print
 from DeviceManager import DeviceManager
 from Memory import Memory
 from Pcb import Pcb
+import Queue
 
 
 class Kernel:
     def __init__(self):
         self.console = Console()
         self.device_manager = DeviceManager()
+        self.ready_queue = Queue.Queue()
 
     def run(self, programs_name):
         program = self.device_manager.get_program(programs_name)

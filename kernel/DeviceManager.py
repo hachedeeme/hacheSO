@@ -1,3 +1,7 @@
+from Memory import Memory
+from Disk import Disk
+
+
 class DeviceManager:
     def __init__(self):
         self.memory = Memory()
@@ -8,6 +12,3 @@ class DeviceManager:
 
     def get_program(self, programs_name):
         return self.disk.get_program(programs_name)
-
-from Memory import Memory
-from Disk import Disk
