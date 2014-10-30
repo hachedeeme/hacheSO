@@ -12,10 +12,16 @@ class Kernel:
         self.console = Console()
         self.device_manager = DeviceManager()
         self.ready_queue = Queue.Queue()
+        self.processes = []
+        self.pids = 0
 
     def run(self, programs_name):
         program = self.device_manager.get_program(programs_name)
+        first_dir = self.device_manager.load_program(program)
         self.execute_program(program)
+        self.processes.append(Pcb(self.pids, first_dir, program.length()))
+        self.pids += 1
+        #raise an interruption of new
 
     def save_program(self, program):
         self.device_manager.save_program(program)
@@ -33,8 +39,6 @@ pro.add_instruction(Print("?", k.console))
 
 k.save_program(pro)
 k.run('p1')
-
-pcb = Pcb(1, 2)
 
 m = Memory()
 m.load(pro)

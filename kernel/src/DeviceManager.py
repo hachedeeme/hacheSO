@@ -12,3 +12,6 @@ class DeviceManager:
 
     def get_program(self, programs_name):
         return self.disk.get_program(programs_name)
+
+    def load_program(self, program):
+        return self.memory.load(program)

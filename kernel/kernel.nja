@@ -1,5 +1,5 @@
 {
-  "mainFile": "Kernel.py", 
+  "mainFile": "src/Kernel.py", 
   "use-tabs": false, 
   "venv": "", 
   "relatedProjects": [], 

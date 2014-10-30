@@ -11,6 +11,8 @@ class Memory:
         self.data[dir_mem] = instruction
 
     def load(self, program):
+        first_dir = self.current_dir
         for instruction in program.instructions:
             self.write(self.current_dir, instruction)
             self.current_dir += 1
+        return first_dir

@@ -5,3 +5,6 @@ class Program:
 
     def add_instruction(self, instruction):
         self.instructions.append(instruction)
+
+    def length(self):
+        return len(self.instructions)
