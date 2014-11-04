@@ -3,6 +3,10 @@ from src.Program import Program
 from src.Kernel import Kernel
 import unittest
 
+#test re loco de la cosa loca que va a testear cosas re locas
+#test re loco de la cosa loca que va a testear cosas re locas
+#test re loco de la cosa loca que va a testear cosas re locas
+
 
 class TestKernel(unittest.TestCase):
     def setUp(self):
@@ -16,6 +20,7 @@ class TestKernel(unittest.TestCase):
     def test_run_when_all_is_fine(self):
         self.kernel.run('pro1')
         self.assertEqual(len(self.kernel.processes), 1)
+
 
 if __name__ == '__main__':
     unittest.main()
