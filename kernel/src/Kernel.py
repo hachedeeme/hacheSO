@@ -4,24 +4,33 @@ from Print import Print
 from DeviceManager import DeviceManager
 from Memory import Memory
 from Pcb import Pcb
+from InterruptionManager import InterruptionManager
+from Interruption import *
+from Scheduler import *
+
 import Queue
 
 
 class Kernel:
     def __init__(self):
-        self.console = Console()
-        self.device_manager = DeviceManager()
-        self.ready_queue = Queue.Queue()
-        self.processes = []
         self.pids = 0
+        self.console = Console()
+        self.ready_queue = Queue.Queue()
+
+        # devices
+        self.device_manager       = DeviceManager()
+        self.interruption_manager = InterruptionManager()
+        # schedulers
+        self.long_term_scheduler  = LongTermScheduler(self.ready_queue)
+        self.short_term_scheduler = ShortTermScheduler(self.ready_queue)
 
     def run(self, programs_name):
         program = self.device_manager.get_program(programs_name)
         first_dir = self.device_manager.load_program(program)
         self.execute_program(program)
-        self.processes.append(Pcb(self.pids, first_dir, program.length()))
+        self.long_term_scheduler.add_new_process(Pcb(self.pids, first_dir, program.length()))
         self.pids += 1
-        #raise an interruption of new
+        self.interruption_manager.handle(New(self.long_term_scheduler))
 
     def save_program(self, program):
         self.device_manager.save_program(program)
