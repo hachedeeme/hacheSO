@@ -1,10 +1,10 @@
 import unittest
 
-from src.hardware.Memory import Memory
-from src.instructions.Add     import Add
-from src.instructions.Program import Program
+from src.hardware.Memory  import Memory
+from src.instructions.Add import Add
+from src.kernel.Program   import Program
 
-class TestPrint(unittest.TestCase):
+class TestMemory(unittest.TestCase):
     def setUp(self):
         # Memory
         self.memory = Memory()
@@ -20,7 +20,9 @@ class TestPrint(unittest.TestCase):
         
     def test_empty_memory(self):
         # The current direction of a empty memory is 0
-        self.assertEqual(Memory().current_dir, 0)
+        self.assertEqual(self.memory.current_dir, 0)
+        # The memory data is empty
+        self.assertEqual(len(self.memory.data), 0)
 
     def test_load_a_program(self):
         # Load a program in memory and save the first direction in a variable.
