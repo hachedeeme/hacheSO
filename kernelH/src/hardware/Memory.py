@@ -1,3 +1,14 @@
+## Memory
+## - data(Dictionary)......: Dictionary representing the data of memory.
+## - size(Integer).........: Size of the memory.
+## - current_dir(Integer)..: Memory direction where will start save a program.
+##
+## + read(Integer)..............: Read the direction dir_mem of the memory and 
+##                                returns the instruction located on it.
+## + write(Integer, Instruction): Write an instruction in the direction dir_mem of the memory.
+## + load(Program)..............: Load a program in memory and return the first direction
+##                                where the program start. 
+## + usedSpace()................: Returns the space use of the memory.
 
 class Memory:
     def __init__(self):
@@ -10,7 +21,7 @@ class Memory:
     def read(self, dir_mem):
         return self.data[dir_mem]
 
-    # Write an instruction in the direction dir_mem of the memory. 
+    # Write an instruction in the direction dir_mem of the memory.
     def write(self, dir_mem, instruction):
         self.data[dir_mem] = instruction
 

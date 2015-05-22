@@ -1,3 +1,8 @@
+## Console
+## - screen(String).......: Program's name.
+##
+## + printMessage(String).: Print the message on screen.
+## + printLn(String)......: Print the message on screen in lane.
 
 class Console:
     def __init__(self):
