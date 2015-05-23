@@ -10,11 +10,28 @@ from Scheduler import *
 import Queue"""
 
 from src.kernel.Console import Console
+from src.hardware.HardDisk import HardDisk
 
 class Kernel:
     def __init__(self):
         self.pids = 0
         self.console = Console()
+        self.hard_disk = HardDisk()
+
+    def save_program(self, program):
+        self.hard_disk.save_program(program)
+    
+    def run(self, programs_name): 
+        program = self.hard_disk.get_program(programs_name)
+        self.pids += 1
+        
+"""    def run(self, programs_name):
+        program = self.device_manager.get_program(programs_name)
+        first_dir = self.device_manager.load_program(program)
+        self.execute_program(program)
+        self.long_term_scheduler.add_new_process(Pcb(self.pids, first_dir, program.length()))
+        self.pids += 1
+        self.interruption_manager.handle(New(self.long_term_scheduler))"""
 """        self.ready_queue = Queue.Queue()
 
         # devices
@@ -24,18 +41,9 @@ class Kernel:
         self.long_term_scheduler  = LongTermScheduler(self.ready_queue)
         self.short_term_scheduler = ShortTermScheduler(self.ready_queue)
 """
-"""    def run(self, programs_name):
-        program = self.device_manager.get_program(programs_name)
-        first_dir = self.device_manager.load_program(program)
-        self.execute_program(program)
-        self.long_term_scheduler.add_new_process(Pcb(self.pids, first_dir, program.length()))
-        self.pids += 1
-        self.interruption_manager.handle(New(self.long_term_scheduler))
+       
 
-    def save_program(self, program):
-        self.device_manager.save_program(program)
-
-    def execute_program(self, program):
+"""    def execute_program(self, program):
         for inst in program.instructions:
             inst.execute()
 
