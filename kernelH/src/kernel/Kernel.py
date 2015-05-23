@@ -9,20 +9,40 @@ from Interruption import *
 from Scheduler import *
 import Queue"""
 
-from src.kernel.Console import Console
+import queue
+
 from src.hardware.HardDisk import HardDisk
+from src.hardware.Memory   import Memory
+
+from src.kernel.Console import Console
+
+from src.scheduling.LongTermScheduler import LongTermScheduler
+
 
 class Kernel:
     def __init__(self):
-        self.pids = 0
+        self.pids    = 0
         self.console = Console()
+        
+        # Queues
+        self.ready_queue = queue.Queue()
+        
+        # Hardware
+        self.memory    = Memory()
         self.hard_disk = HardDisk()
-
+        
+        # Scheduling
+        self.long_termn_scheduler = LongTermScheduler(self.ready_queue)
+    
+    ## ***************   
+    ## *** Methods *** 
+    ## ***************   
     def save_program(self, program):
         self.hard_disk.save_program(program)
     
     def run(self, programs_name): 
         program = self.hard_disk.get_program(programs_name)
+        program
         self.pids += 1
         
 """    def run(self, programs_name):

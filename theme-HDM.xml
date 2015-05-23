@@ -2,8 +2,8 @@
 <colorTheme id="21" name="ObsidianHache" modified="2011-02-01 16:43:47" author="Morinar">
     <searchResultIndication color="#616161" />
     <filteredSearchResultIndication color="#616161" />
-    <occurrenceIndication color="#616161" />
-    <writeOccurrenceIndication color="#616161" />
+    <occurrenceIndication color="#004B2E" />
+    <writeOccurrenceIndication color="#004B2E" />
     <findScope color="#E0E2E4" />
     <deletionIndication color="#E0E2E4" />
     <sourceHoverBackground color="#FFFFFF" />
