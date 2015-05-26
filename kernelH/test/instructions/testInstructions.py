@@ -1,9 +1,9 @@
 import unittest
 
 from src.kernel.Console import Console
-from src.instructions.Add     import Add
-from src.instructions.Print   import Print
-from src.instructions.PrintLn import PrintLn
+from src.process.instructions.Add     import Add
+from src.process.instructions.Print   import Print
+from src.process.instructions.PrintLn import PrintLn
 
 class TestInstructions(unittest.TestCase):
     def setUp(self):

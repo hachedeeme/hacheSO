@@ -1,7 +1,7 @@
 import unittest
 
+from src.process.Program  import Program
 from src.hardware.HardDisk import HardDisk
-from src.kernel.Program import Program
 
 class TestHardDisk(unittest.TestCase):
     def setUp(self):

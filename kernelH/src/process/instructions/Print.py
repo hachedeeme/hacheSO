@@ -4,7 +4,7 @@
 ##
 ## + execute().........: execute the instruction.
 
-from src.instructions.Instruction import Instruction
+from src.process.instructions.Instruction import Instruction
 
 class Print(Instruction):
     def __init__(self, objToPrint, console):

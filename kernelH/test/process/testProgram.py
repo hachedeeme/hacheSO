@@ -1,7 +1,7 @@
 import unittest
 
-from src.kernel.Program import Program
-from src.instructions.Add import Add
+from src.process.Program import Program
+from src.process.instructions.Add import Add
 
 class TestProgram(unittest.TestCase):
     def setUp(self):

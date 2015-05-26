@@ -4,7 +4,7 @@
 ##
 ## + execute().........: execute the instruction.
 
-from src.instructions.Print import Print
+from src.process.instructions.Print import Print
 
 class PrintLn(Print):
     

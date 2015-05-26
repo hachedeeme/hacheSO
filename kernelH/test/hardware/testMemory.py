@@ -1,8 +1,8 @@
 import unittest
 
 from src.hardware.Memory  import Memory
-from src.instructions.Add import Add
-from src.kernel.Program   import Program
+from src.process.Program import Program
+from src.process.instructions.Add import Add
 
 class TestMemory(unittest.TestCase):
     def setUp(self):

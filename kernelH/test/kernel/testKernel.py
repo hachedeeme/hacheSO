@@ -1,8 +1,8 @@
 import unittest
 
-from src.kernel.Program import Program
-from src.kernel.Kernel  import Kernel
-from src.instructions.Print import Print
+from src.kernel.Kernel    import Kernel
+from src.process.Program import Program
+from src.process.instructions.Print import Print
 
 class TestKernel(unittest.TestCase):
     def setUp(self):

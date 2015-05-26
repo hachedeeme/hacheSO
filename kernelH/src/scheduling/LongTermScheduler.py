@@ -19,5 +19,5 @@ class LongTermScheduler(Scheduler):
     def choose_new_process(self):
         # This method chose only the firs pcb
         if self.new_processes:
-            self.ready_queue.put(self.new_processes[0])
+            self.queue.put(self.new_processes[0])
     

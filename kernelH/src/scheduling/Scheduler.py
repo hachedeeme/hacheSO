@@ -5,7 +5,7 @@
 
 class Scheduler:
 	def __init__(self, queue):
-		self.ready_queue = queue
+		self.queue = queue
 
 	def choose_new_process(self):
 		raise NotImplementedError("Please Implement this method")
