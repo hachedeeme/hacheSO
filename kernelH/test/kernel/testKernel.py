@@ -16,7 +16,7 @@ class TestKernel(unittest.TestCase):
         
     def test_run_when_all_is_fine(self):
         self.kernel.run('program1')
-       #self.assertEqual(len(self.kernel.long_term_scheduler.new_processes), 1)
+        # self.assertEqual(len(self.kernel.long_term_scheduler.new_processes), 1)
         self.assertEqual(self.kernel.pids, 1)
         
 if __name__ == '__main__':
