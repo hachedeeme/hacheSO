@@ -1,4 +1,4 @@
-## Print
+## Add
 ## - firstOp(Integer)...: The first operand of the Add instruction.
 ## - secondOp(Integer)..: The second operand of the Add instruction.
 ##

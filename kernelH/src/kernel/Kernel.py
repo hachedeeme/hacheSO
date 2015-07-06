@@ -30,15 +30,16 @@ class Kernel:
         self.news_queue  = queue.Queue()
         
         # Hardware
-        self.memory    = Memory()
+        self.memory    = Memory(2048)
         self.hard_disk = HardDisk()
         
         # Scheduling
-        self.long_term_scheduler = LongTermScheduler(self.ready_queue)
+        self.long_term_scheduler  = LongTermScheduler(self.ready_queue)
+        #self.short_term_scheduler = LongTermScheduler(self.ready_queue)
     
-    ## ***************   
-    ## *** Methods *** 
-    ## ***************   
+    #===============  
+    #=== Methods === 
+    #===============  
     def save_program(self, program):
         self.hard_disk.save_program(program)
     

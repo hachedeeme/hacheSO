@@ -7,7 +7,7 @@ from src.process.instructions.Add import Add
 class TestMemory(unittest.TestCase):
     def setUp(self):
         # Memory
-        self.memory = Memory()
+        self.memory = Memory(1024)
         
         # Programs
         self.program1 = Program('p1')

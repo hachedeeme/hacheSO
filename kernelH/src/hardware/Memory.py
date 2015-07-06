@@ -11,9 +11,9 @@
 ## + usedSpace()................: Returns the space use of the memory.
 
 class Memory:
-    def __init__(self):
+    def __init__(self, memory_size):
         self.data = {}
-        self.size = 0
+        self.size = memory_size
         self.current_dir = 0
 
     # Read the direction dir_mem of the memory and returns the

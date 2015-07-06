@@ -17,7 +17,7 @@ class Clock(threading.Thread):
             print(self.name + " tick " + str(self.tick))
             
             for lisener in self.listeners:
-                lisener.make_tick()
+                lisener.clock_pulse()
             
             # Sleep one second
             time.sleep(1)
