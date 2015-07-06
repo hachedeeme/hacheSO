@@ -12,7 +12,14 @@ class Ready(PcbState):
     def __init__(self):
         self.state = ''
 
-
 class Running(PcbState):
+    def __init__(self):
+        self.state = ''
+        
+class Finish(PcbState):
+    def __init__(self):
+        self.state = ''
+        
+class IOState(PcbState):
     def __init__(self):
         self.state = ''

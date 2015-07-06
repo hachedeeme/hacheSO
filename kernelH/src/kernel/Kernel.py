@@ -17,6 +17,7 @@ from src.hardware.Memory   import Memory
 from src.kernel.Console import Console
 
 from src.scheduling.LongTermScheduler import LongTermScheduler
+from src.process.Pcb import Pcb
 
 
 class Kernel:
@@ -26,13 +27,14 @@ class Kernel:
         
         # Queues
         self.ready_queue = queue.Queue()
+        self.news_queue  = queue.Queue()
         
         # Hardware
         self.memory    = Memory()
         self.hard_disk = HardDisk()
         
         # Scheduling
-        self.long_termn_scheduler = LongTermScheduler(self.ready_queue)
+        self.long_term_scheduler = LongTermScheduler(self.ready_queue)
     
     ## ***************   
     ## *** Methods *** 
@@ -40,9 +42,25 @@ class Kernel:
     def save_program(self, program):
         self.hard_disk.save_program(program)
     
-    def run(self, programs_name): 
+    def run(self, programs_name):         
+        # get program
         program = self.hard_disk.get_program(programs_name)
-        program
+        
+        # create the new pcb with the current id
+        new_pcb = self.create_pcb_of(program)
+        
+        # add the new process to the new process list
+        self.long_term_scheduler.add_new_process(new_pcb)
+    
+    def create_pcb_of(self, a_program):
+        # load the program in memory
+        program_counter = self.memory.load(a_program)
+        # create the new Pcb with the current id
+        new_pcb = Pcb(self.pids, program_counter, a_program.length())
+        self.raise_pid()
+        return new_pcb
+        
+    def raise_pid(self):
         self.pids += 1
         
 """    def run(self, programs_name):
