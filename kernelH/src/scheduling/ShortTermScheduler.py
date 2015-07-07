@@ -18,3 +18,9 @@ class ShortTermScheduler(Scheduler):
     
     def reset_quantum(self):
         self.policy.reset_clock_pulses()
+        
+    def put_pcb(self, pcb):
+        self.queue.put(pcb)
+        
+    def raise_clock_pulses(self):
+        self.policy.raise_clock_pulses()

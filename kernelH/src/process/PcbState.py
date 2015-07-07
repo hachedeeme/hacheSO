@@ -5,21 +5,21 @@ class PcbState:
 
 class New(PcbState):
     def __init__(self):
-        self.state = ''
+        self.state = 'NEW'
 
 
 class Ready(PcbState):
     def __init__(self):
-        self.state = ''
+        self.state = 'READY'
 
 class Running(PcbState):
     def __init__(self):
-        self.state = ''
+        self.state = 'RUNNING'
         
 class Finish(PcbState):
     def __init__(self):
-        self.state = ''
+        self.state = 'FINISH'
         
 class IOState(PcbState):
     def __init__(self):
-        self.state = ''
+        self.state = 'IO'

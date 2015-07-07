@@ -5,7 +5,9 @@
 ## + add_new_process(Pcb)..: Add a new Pcb to the list of processes.
 ## + choose_new_process()..: Choose a Pcb from the ready Queue.
 
+from src.process.PcbState import Ready
 from src.scheduling.Scheduler import Scheduler
+
 
 class LongTermScheduler(Scheduler):
     
@@ -20,13 +22,13 @@ class LongTermScheduler(Scheduler):
     def put_new_process(self):
         new_pcb = self.choose_new_process()
         if new_pcb != None:
-            new_pcb.change_state('READY')
+            new_pcb.change_state(Ready())
             self.queue.put(new_pcb)
 
     def choose_new_process(self):
         # This method chose only the first pcb and put it in the queue
         if self.new_processes:
-            return self.new_processes[0]
+            return self.new_processes.pop()
         
     def add_finished_processes(self, a_pcb):
         self.finished_processes.append(a_pcb)

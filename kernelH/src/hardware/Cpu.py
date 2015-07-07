@@ -3,6 +3,7 @@
 #
 # + clock_pulse(): Execute one instruction
 from src.kernel.interruptions.FinishPcb import FinishPcb
+from src.kernel.interruptions.TimeOut import TimeOut
 
 class Cpu(object):
 
@@ -25,13 +26,14 @@ class Cpu(object):
                 print("Process ID: " + str(self.current_pcb.pid) + " Instruction: " + str(current_inst))
                 current_inst.execute()
                 self.current_pcb.raise_pc()
+                self.scheduler.raise_clock_pulses()
                 
                 if self.current_pcb.is_finish():
                     # Make Finish interruption
                     self.interruption_manager.dispatch(FinishPcb(), self.current_pcb)
                 elif self.scheduler.is_time_out():
                     # Make TimeOut interruption
-                    pass
+                    self.interruption_manager.dispatch(TimeOut(), self.current_pcb)
             else:
                 # Make the IO interruption
                 pass

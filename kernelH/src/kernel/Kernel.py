@@ -1,14 +1,3 @@
-"""from Console import Console
-from Program import Program
-from Print import Print
-from DeviceManager import DeviceManager
-from Memory import Memory
-from Pcb import Pcb
-from InterruptionManager import InterruptionManager
-from Interruption import *
-from Scheduler import *
-import Queue"""
-
 import queue
 
 from src.hardware.Clock    import Clock
@@ -25,6 +14,7 @@ from src.process.instructions.Print import Print
 from src.scheduling.LongTermScheduler   import LongTermScheduler
 from src.scheduling.ShortTermScheduler  import ShortTermScheduler
 from src.scheduling.policies.RoundRobin import RoundRobin
+from src.kernel.interruptions.NewPcb import NewPcb
 
 
 class Kernel:
@@ -52,7 +42,7 @@ class Kernel:
         # Cpu
         self.cpu = Cpu(self.short_term_scheduler, self.mmu, self.interruption_manager)
         
-        #self.clock = Clock("Cpu clock", [self.cpu])
+        self.clock = Clock("Cpu clock", [self.cpu])
         
     #===============  
     #=== Methods === 
@@ -71,7 +61,7 @@ class Kernel:
         self.long_term_scheduler.add_new_process(new_pcb)
         
         # NewPcb Interruption
-        self.long_term_scheduler.put_new_process()
+        self.interruption_manager.dispatch(NewPcb(), new_pcb)
     
     def create_pcb_of(self, a_program):
         # load the program in memory
@@ -83,37 +73,15 @@ class Kernel:
         
     def raise_pid(self):
         self.pids += 1
-        
-"""    def run(self, programs_name):
-        program = self.device_manager.get_program(programs_name)
-        first_dir = self.device_manager.load_program(program)
-        self.execute_program(program)
-        self.long_term_scheduler.add_new_process(Pcb(self.pids, first_dir, program.length()))
-        self.pids += 1
-        self.interruption_manager.handle(New(self.long_term_scheduler))"""
-"""        self.ready_queue = Queue.Queue()
 
-        # devices
-        self.device_manager       = DeviceManager()
-        self.interruption_manager = InterruptionManager()
-        # schedulers
-        self.long_term_scheduler  = LongTermScheduler(self.ready_queue)
-        self.short_term_scheduler = ShortTermScheduler(self.ready_queue)
-"""
-       
 
-"""    def execute_program(self, program):
-        for inst in program.instructions:
-            inst.execute()
-"""
-#k = Kernel()
-"""pro.add_instruction(Print("Hola ", k.console))
-pro.add_instruction(Print("como ", k.console))
-pro.add_instruction(Print("estas", k.console))
-pro.add_instruction(Print("?", k.console))
-"""
-"""
+
+k = Kernel()
 pro = Program('p1')
+pro.add_instruction(Add(1,2))
+pro.add_instruction(Add(1,2))
+pro.add_instruction(Add(1,2))
+pro.add_instruction(Add(1,2))
 pro.add_instruction(Add(1,2))
 pro.add_instruction(Add(1,2))
 pro.add_instruction(Add(1,2))
@@ -122,8 +90,16 @@ pro2.add_instruction(Add(3,2))
 pro2.add_instruction(Add(3,2))
 pro2.add_instruction(Add(3,2))
 pro2.add_instruction(Add(3,2))
+pro3 = Program('p3')
+pro3.add_instruction(Print("Hola ", k.console))
+pro3.add_instruction(Print("como ", k.console))
+pro3.add_instruction(Print("estas", k.console))
+pro3.add_instruction(Print("?", k.console))
+
 k.save_program(pro)
 k.save_program(pro2)
+k.save_program(pro3)
+
 k.run('p1')
 k.run('p2')
-print(str(k.ready_queue.qsize()))"""
+
