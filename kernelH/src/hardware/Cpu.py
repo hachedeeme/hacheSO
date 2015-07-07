@@ -2,13 +2,15 @@
 # - current_pcb(Pcb):
 #
 # + clock_pulse(): Execute one instruction
+from src.kernel.interruptions.FinishPcb import FinishPcb
 
 class Cpu(object):
 
-    def __init__(self, scheduler, mmu):
+    def __init__(self, scheduler, mmu, interruption_manager):
         self.current_pcb = None
         self.scheduler   = scheduler
         self.mmu         = mmu
+        self.interruption_manager = interruption_manager
         
     def clock_pulse(self):
         # Chose a new pcb if current_pcb is None
@@ -26,8 +28,8 @@ class Cpu(object):
                 
                 if self.current_pcb.is_finish():
                     # Make Finish interruption
-                    pass
-                else:
+                    self.interruption_manager.dispatch(FinishPcb(), self.current_pcb)
+                elif self.scheduler.is_time_out():
                     # Make TimeOut interruption
                     pass
             else:

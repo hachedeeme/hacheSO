@@ -12,3 +12,9 @@ class ShortTermScheduler(Scheduler):
     
     def choose_new_process(self):
         return self.policy.choose_pcb(self.queue)
+    
+    def is_time_out(self):
+        return self.policy.is_finish()
+    
+    def reset_quantum(self):
+        self.policy.reset_clock_pulses()

@@ -28,7 +28,8 @@ class TestClock(unittest.TestCase):
         self.scheduler = ShortTermScheduler(self.queue, RoundRobin(3))
         self.mmu = MemoryManagementUnit(Memory(1024))
         
-        self.cpu = Cpu(self.scheduler, self.mmu)
+        
+        self.cpu = Cpu(self.scheduler, self.mmu, None)
         
         self.queue.put(Pcb(1, self.mmu.load(self.program1), self.program1.length()))
         self.queue.put(Pcb(2, self.mmu.load(self.program2), self.program2.length()))
