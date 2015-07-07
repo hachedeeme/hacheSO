@@ -10,3 +10,6 @@ class PrintLn(Print):
     
     def execute(self):
         self.console.printLn(self.message)
+
+    def __str__(self):
+        return 'PrintLn("%s")' % (self.message)

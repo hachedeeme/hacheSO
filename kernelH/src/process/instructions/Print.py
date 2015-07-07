@@ -4,12 +4,15 @@
 ##
 ## + execute().........: execute the instruction.
 
-from src.process.instructions.Instruction import Instruction
+from src.process.instructions.IOInstruction import IOInstruction
 
-class Print(Instruction):
+class Print(IOInstruction):
     def __init__(self, objToPrint, console):
         self.message = str(objToPrint)
         self.console = console
 
     def execute(self):
         self.console.printMessage(self.message)
+        
+    def __str__(self):
+        return 'Print("%s")' % (self.message)

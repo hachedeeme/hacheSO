@@ -13,3 +13,6 @@ class Add(Instruction):
 
     def execute(self):
         return self.firstOp + self.secondOp
+    
+    def __str__(self):
+        return "Add(%s,%s)" % (self.firstOp, self.secondOp)

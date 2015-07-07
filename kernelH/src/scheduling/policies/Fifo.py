@@ -5,5 +5,10 @@
 from src.scheduling.policies.Policy import Policy
 
 class Fifo(Policy):
+    
+    def __init__(self):
+        Policy.__init__(self)
+    
     def choose_pcb(self, queue):
-        return queue.get()
+        if not queue.empty():
+            return queue.get()

@@ -15,9 +15,14 @@ class LongTermScheduler(Scheduler):
 
     def add_new_process(self, a_pcb):
         self.new_processes.append(a_pcb)
+        
+    def put_new_process(self):
+        new_pcb = self.choose_new_process()
+        if new_pcb != None:
+            self.queue.put(new_pcb)
 
     def choose_new_process(self):
-        # This method chose only the firs pcb
+        # This method chose only the first pcb and put it in the queue
         if self.new_processes:
-            self.queue.put(self.new_processes[0])
+            return self.new_processes[0]
     

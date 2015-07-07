@@ -13,10 +13,15 @@ import queue
 
 from src.hardware.HardDisk import HardDisk
 from src.hardware.Memory   import Memory
+from src.hardware.Cpu      import Cpu
 
 from src.kernel.Console import Console
 
-from src.scheduling.LongTermScheduler import LongTermScheduler
+from src.scheduling.LongTermScheduler   import LongTermScheduler
+from src.scheduling.ShortTermScheduler  import ShortTermScheduler
+from src.scheduling.policies.RoundRobin import RoundRobin
+from src.kernel.MemoryManagementUnit    import MemoryManagementUnit
+
 from src.process.Pcb import Pcb
 
 
@@ -32,11 +37,16 @@ class Kernel:
         # Hardware
         self.memory    = Memory(2048)
         self.hard_disk = HardDisk()
+        # MMU
+        self.mmu = MemoryManagementUnit(self.memory)
         
         # Scheduling
         self.long_term_scheduler  = LongTermScheduler(self.ready_queue)
-        #self.short_term_scheduler = LongTermScheduler(self.ready_queue)
+        self.short_term_scheduler = ShortTermScheduler(self.ready_queue, RoundRobin(3))
     
+        # Cpu
+        self.cpu = Cpu(self.short_term_scheduler, self.mmu)
+        
     #===============  
     #=== Methods === 
     #===============  
@@ -55,7 +65,7 @@ class Kernel:
     
     def create_pcb_of(self, a_program):
         # load the program in memory
-        program_counter = self.memory.load(a_program)
+        program_counter = self.mmu.load(a_program)
         # create the new Pcb with the current id
         new_pcb = Pcb(self.pids, program_counter, a_program.length())
         self.raise_pid()

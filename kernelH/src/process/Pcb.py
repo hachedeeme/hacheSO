@@ -10,3 +10,6 @@ class Pcb:
 
     def change_state(self, new_state):
         self.state = new_state
+        
+    def raise_pc(self):
+        self.pc += 1

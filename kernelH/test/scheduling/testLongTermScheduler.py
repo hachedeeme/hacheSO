@@ -27,7 +27,7 @@ class TestLongTermScheduler(unittest.TestCase):
         # Add a new pcb with process id 0.
         self.scheduler.add_new_process(Pcb(0,0,0))
         # When choose a new process.
-        self.scheduler.choose_new_process()
+        self.scheduler.put_new_process()
         # The process id of the first pcb should be 1.
         self.assertEquals(self.scheduler.queue.get().pid, 1)
         

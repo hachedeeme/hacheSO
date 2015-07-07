@@ -35,7 +35,7 @@ class TestMemory(unittest.TestCase):
         self.assertEqual(first_dir, 0)
         
         # The used space of the memory should be 3.
-        self.assertEqual(self.memory.usedSpace(), 3)
+        self.assertEqual(self.memory.used_space(), 3)
         
         
         # Load a second program in memory and save the first direction in a variable.
@@ -48,7 +48,7 @@ class TestMemory(unittest.TestCase):
         self.assertEqual(first_dir, 3)
         
         # The used space of the memory should be 3.
-        self.assertEqual(self.memory.usedSpace(), 4)
+        self.assertEqual(self.memory.used_space(), 4)
 
     def test_read_and_write_instructions(self):
         add = Add(2,2)
@@ -59,7 +59,7 @@ class TestMemory(unittest.TestCase):
         self.assertEqual(self.memory.read(100), add)
         
         # The used space of the memory should be 1.
-        self.assertEqual(self.memory.usedSpace(), 1)
+        self.assertEqual(self.memory.used_space(), 1)
         
 if __name__ == '__main__':
     unittest.main()

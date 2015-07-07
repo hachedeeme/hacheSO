@@ -35,5 +35,5 @@ class Memory:
         return first_dir
     
     # Returns the space use of the memory.
-    def usedSpace(self):
+    def used_space(self):
         return len(self.data)

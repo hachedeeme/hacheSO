@@ -17,12 +17,12 @@ class TestKernel(unittest.TestCase):
     def test_creat_pcb_when_all_is_fine(self):
         new_pcb = self.kernel.create_pcb_of(self.program1)
         self.assertEqual(self.kernel.pids, 1)
-        self.assertEqual(self.kernel.memory.usedSpace(), new_pcb.program_length)
+        self.assertEqual(self.kernel.mmu.used_space(), new_pcb.program_length)
         self.assertEqual(new_pcb.pc, 0)
         
         new_pcb = self.kernel.create_pcb_of(self.program1)
         self.assertEqual(self.kernel.pids, 2)
-        self.assertEqual(self.kernel.memory.usedSpace(), new_pcb.program_length*2)
+        self.assertEqual(self.kernel.mmu.used_space(), new_pcb.program_length*2)
         self.assertEqual(new_pcb.pc, 4)
         
     def test_run_when_all_is_fine(self):
