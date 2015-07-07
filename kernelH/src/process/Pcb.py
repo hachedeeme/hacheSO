@@ -13,3 +13,6 @@ class Pcb:
         
     def raise_pc(self):
         self.pc += 1
+        
+    def is_finish(self):
+        return self.pc == (self.base_direction + self.program_length)
