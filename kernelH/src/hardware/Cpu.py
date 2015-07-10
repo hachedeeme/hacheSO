@@ -1,6 +1,8 @@
+from src.kernel.interruptions.IOInterruption import IOInterruption
 from src.kernel.interruptions.FinishPcb import FinishPcb
 from src.kernel.interruptions.TimeOut import TimeOut
 from src.process.PcbState import Running
+
 
 class Cpu(object):
 
@@ -43,7 +45,7 @@ class Cpu(object):
                     self.interruption_manager.dispatch(TimeOut(self.current_pcb))
             else:
                 # Make the IO interruption
-                pass
+                self.interruption_manager.dispatch(IOInterruption(self.current_pcb, current_inst))
                     
     def set_new_pcb(self):
         if not self.current_pcb:

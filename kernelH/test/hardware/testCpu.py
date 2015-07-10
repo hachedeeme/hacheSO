@@ -39,7 +39,7 @@ class TestClock(unittest.TestCase):
         self.assertEqual(self.queue.qsize(), 2)
         self.cpu.set_new_pcb()
         self.assertEqual(self.queue.qsize(), 1)
-        self.assertEqual(self.cpu.current_pcb.pid, 1)
+        self.assertEqual(self.cpu.current_pcb_tuple.pid, 1)
                 
 if __name__ == '__main__':
     unittest.main()

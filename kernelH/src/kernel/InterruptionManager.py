@@ -17,3 +17,6 @@ class InterruptionManager():
     
     def get_cpu(self):
         return self.kernel.cpu
+    
+    def get_io_device(self):
+        return self.kernel.io

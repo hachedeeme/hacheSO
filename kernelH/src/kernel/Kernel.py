@@ -16,6 +16,7 @@ from src.scheduling.ShortTermScheduler  import ShortTermScheduler
 from src.scheduling.policies.RoundRobin import RoundRobin
 from src.kernel.interruptions.NewPcb import NewPcb
 from src.scheduling.policies.Fifo import Fifo
+from src.hardware.IOdevices.IODevice import IODevice
 
 class Kernel:
     def __init__(self, cpu, mmu, hard_disk, scheduling_policy=RoundRobin(3)):
@@ -42,6 +43,7 @@ class Kernel:
         
         # IO
         self.console = Console()
+        self.io = IODevice(self.interruption_manager)
         
         self.clock = Clock("Cpu clock", [self.cpu])
         
@@ -79,9 +81,8 @@ class Kernel:
     
     def start(self):
         self.clock.start()
+        self.io.start()
         
-
-
 memory = Memory(1024)
 mmu    = MemoryManagementUnit(memory)
 hard_disk = HardDisk()
@@ -106,8 +107,12 @@ pro2.add_instruction(Add(3,2))
 pro2.add_instruction(Add(3,2))
 pro2.add_instruction(Add(3,2))
 pro3 = Program('p3')
+pro3.add_instruction(Add(4,2))
+pro3.add_instruction(Add(4,2))
 pro3.add_instruction(Print("Hola ", k.console))
 pro3.add_instruction(Print("como ", k.console))
+pro3.add_instruction(Add(4,2))
+pro3.add_instruction(Add(4,2))
 pro3.add_instruction(Print("estas", k.console))
 pro3.add_instruction(Print("?", k.console))
 
@@ -117,4 +122,5 @@ k.save_program(pro3)
 
 k.run('p1')
 k.run('p2')
+k.run('p3')
 

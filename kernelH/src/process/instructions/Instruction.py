@@ -9,6 +9,3 @@ class Instruction:
 
     def is_IO(self):
         return False
-    
-    def __str__(self):
-        raise NotImplementedError("Please Implement this method")
