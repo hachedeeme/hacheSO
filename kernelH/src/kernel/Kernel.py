@@ -3,20 +3,21 @@ import queue
 from src.hardware.Clock    import Clock
 from src.hardware.Cpu      import Cpu
 from src.hardware.HardDisk import HardDisk
-from src.hardware.Memory   import Memory
 from src.hardware.IOdevices.Console import Console
+from src.hardware.IOdevices.IODevice import IODevice
+from src.hardware.Memory   import Memory
 from src.kernel.InterruptionManager import InterruptionManager
-from src.kernel.MemoryManagementUnit    import MemoryManagementUnit
+from src.kernel.memoryManagement.MemoryManagementUnit    import MemoryManagementUnit
+from src.kernel.interruptions.NewPcb import NewPcb
 from src.process.Pcb import Pcb
 from src.process.Program import Program
 from src.process.instructions.Add import Add
 from src.process.instructions.Print import Print
 from src.scheduling.LongTermScheduler   import LongTermScheduler
 from src.scheduling.ShortTermScheduler  import ShortTermScheduler
-from src.scheduling.policies.RoundRobin import RoundRobin
-from src.kernel.interruptions.NewPcb import NewPcb
 from src.scheduling.policies.Fifo import Fifo
-from src.hardware.IOdevices.IODevice import IODevice
+from src.scheduling.policies.RoundRobin import RoundRobin
+
 
 class Kernel:
     def __init__(self, cpu, mmu, hard_disk, scheduling_policy=RoundRobin(3)):
@@ -91,7 +92,7 @@ scheduling_policy = Fifo()
 
 k = Kernel(cpu, mmu, hard_disk, scheduling_policy)
 k = Kernel(cpu, mmu, hard_disk)
-k.start()
+#k.start()
 
 pro = Program('p1')
 pro.add_instruction(Add(1,2))

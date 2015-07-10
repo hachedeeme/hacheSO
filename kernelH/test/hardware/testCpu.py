@@ -4,7 +4,7 @@ import unittest
 
 from src.hardware.Cpu import Cpu
 from src.hardware.Memory import Memory
-from src.kernel.MemoryManagementUnit import MemoryManagementUnit
+from src.kernel.memoryManagement.MemoryManagementUnit import MemoryManagementUnit
 from src.process.Program import Program
 from src.process.instructions.Add import Add
 from src.scheduling.ShortTermScheduler import ShortTermScheduler
@@ -39,7 +39,7 @@ class TestClock(unittest.TestCase):
         self.assertEqual(self.queue.qsize(), 2)
         self.cpu.set_new_pcb()
         self.assertEqual(self.queue.qsize(), 1)
-        self.assertEqual(self.cpu.current_pcb_tuple.pid, 1)
+        self.assertEqual(self.cpu.current_pcb.pid, 1)
                 
 if __name__ == '__main__':
     unittest.main()
