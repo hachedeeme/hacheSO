@@ -5,7 +5,7 @@ from src.hardware.Memory import Memory
 from src.process.instructions.Add import Add
 from src.process.Program import Program
 
-class TestConsole(unittest.TestCase):
+class TestMemoryManagementUnit(unittest.TestCase):
     def setUp(self):
         self.inst1 = Add(1,1)
         self.inst2 = Add(2,1)
