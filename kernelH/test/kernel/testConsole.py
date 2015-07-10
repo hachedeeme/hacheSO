@@ -1,6 +1,6 @@
 import unittest
 
-from src.kernel.Console import Console
+from src.hardware.IOdevices.Console import Console
 
 class TestConsole(unittest.TestCase):
     def setUp(self):

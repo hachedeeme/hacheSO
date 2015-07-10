@@ -8,8 +8,6 @@ class Clock(threading.Thread):
         self.tick = 0
         self.running   = True
         self.listeners = listeners
-        # start clock
-        self.start()
         
     def run(self):
         while self.running:

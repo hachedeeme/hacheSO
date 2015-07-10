@@ -2,7 +2,7 @@ import unittest
 
 from src.process.Pcb import Pcb
 
-class TestPolicy(unittest.TestCase):
+class TestPcb(unittest.TestCase):
     def setUp(self):
         # Process
         self.pcb = Pcb(0,12,4)

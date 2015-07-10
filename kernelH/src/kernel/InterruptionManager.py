@@ -3,8 +3,8 @@ class InterruptionManager():
     def __init__(self, kernel):
         self.kernel = kernel
     
-    def dispatch(self, interruption, pcb):
-        interruption.manage(self,pcb)
+    def dispatch(self, interruption):
+        interruption.manage(self)
     
     #===============#
     #=== Getters ===#    

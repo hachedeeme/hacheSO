@@ -1,12 +1,22 @@
 import unittest
 
+from src.hardware.Cpu import Cpu
+from src.hardware.HardDisk import HardDisk
+from src.hardware.Memory import Memory
 from src.kernel.Kernel    import Kernel
+from src.kernel.MemoryManagementUnit import MemoryManagementUnit
 from src.process.Program import Program
 from src.process.instructions.Print import Print
 
+
 class TestKernel(unittest.TestCase):
     def setUp(self):
-        self.kernel = Kernel()
+        memory    = Memory(1024)
+        mmu = MemoryManagementUnit(memory)
+        hard_disk = HardDisk()
+        cpu = Cpu(None, None, None)
+        
+        self.kernel = Kernel(cpu, mmu, hard_disk)
         self.program1 = Program('program1')
         self.program1.add_instruction(Print("Hello ", self.kernel.console))
         self.program1.add_instruction(Print("how ", self.kernel.console))

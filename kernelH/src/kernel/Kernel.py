@@ -4,7 +4,7 @@ from src.hardware.Clock    import Clock
 from src.hardware.Cpu      import Cpu
 from src.hardware.HardDisk import HardDisk
 from src.hardware.Memory   import Memory
-from src.kernel.Console import Console
+from src.hardware.IOdevices.Console import Console
 from src.kernel.InterruptionManager import InterruptionManager
 from src.kernel.MemoryManagementUnit    import MemoryManagementUnit
 from src.process.Pcb import Pcb
@@ -15,38 +15,39 @@ from src.scheduling.LongTermScheduler   import LongTermScheduler
 from src.scheduling.ShortTermScheduler  import ShortTermScheduler
 from src.scheduling.policies.RoundRobin import RoundRobin
 from src.kernel.interruptions.NewPcb import NewPcb
-
+from src.scheduling.policies.Fifo import Fifo
 
 class Kernel:
-    def __init__(self):
+    def __init__(self, cpu, mmu, hard_disk, scheduling_policy=RoundRobin(3)):
         self.pids    = 0
-        self.console = Console()
-        
         # Queues
         self.ready_queue = queue.Queue()
         
         # Hardware
-        self.memory    = Memory(2048)
-        self.hard_disk = HardDisk()
-        
-        # MMU
-        self.mmu = MemoryManagementUnit(self.memory)
+        self.hard_disk = hard_disk
+        self.mmu       = mmu
         
         # Interruption Manager
         self.interruption_manager = InterruptionManager(self)
         
         # Scheduling
+        self.short_term_scheduler = ShortTermScheduler(self.ready_queue, scheduling_policy)
         self.long_term_scheduler  = LongTermScheduler(self.ready_queue)
-        self.short_term_scheduler = ShortTermScheduler(self.ready_queue, RoundRobin(3))
     
         # Cpu
-        self.cpu = Cpu(self.short_term_scheduler, self.mmu, self.interruption_manager)
+        self.cpu = cpu
+        self.cpu.set_scheduler(self.short_term_scheduler)
+        self.cpu.set_mmu(self.mmu)
+        self.cpu.set_interruption_manager(self.interruption_manager)
+        
+        # IO
+        self.console = Console()
         
         self.clock = Clock("Cpu clock", [self.cpu])
         
     #===============  
     #=== Methods === 
-    #===============  
+    #===============
     def save_program(self, program):
         self.hard_disk.save_program(program)
     
@@ -61,22 +62,36 @@ class Kernel:
         self.long_term_scheduler.add_new_process(new_pcb)
         
         # NewPcb Interruption
-        self.interruption_manager.dispatch(NewPcb(), new_pcb)
+        self.interruption_manager.dispatch(NewPcb())
     
     def create_pcb_of(self, a_program):
         # load the program in memory
         program_counter = self.mmu.load(a_program)
+        
         # create the new Pcb with the current id
         new_pcb = Pcb(self.pids, program_counter, a_program.length())
         self.raise_pid()
+        
         return new_pcb
         
     def raise_pid(self):
         self.pids += 1
+    
+    def start(self):
+        self.clock.start()
+        
 
 
+memory = Memory(1024)
+mmu    = MemoryManagementUnit(memory)
+hard_disk = HardDisk()
+cpu = Cpu(None, None, None)
+scheduling_policy = Fifo()
 
-k = Kernel()
+k = Kernel(cpu, mmu, hard_disk, scheduling_policy)
+k = Kernel(cpu, mmu, hard_disk)
+k.start()
+
 pro = Program('p1')
 pro.add_instruction(Add(1,2))
 pro.add_instruction(Add(1,2))

@@ -1,12 +1,15 @@
 
 class PcbState:
     def __init__(self):
+        self.state
         raise NotImplementedError("Can't create a PcbState object'")
+    
+    def __str__(self):
+        return self.state
 
 class New(PcbState):
     def __init__(self):
         self.state = 'NEW'
-
 
 class Ready(PcbState):
     def __init__(self):

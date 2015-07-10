@@ -1,6 +1,6 @@
 import unittest
 
-from src.kernel.Console import Console
+from src.hardware.IOdevices.Console   import Console
 from src.process.instructions.Add     import Add
 from src.process.instructions.Print   import Print
 from src.process.instructions.PrintLn import PrintLn
