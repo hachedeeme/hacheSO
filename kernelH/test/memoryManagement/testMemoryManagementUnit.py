@@ -1,6 +1,6 @@
 import unittest
 
-from src.kernel.memoryManagement.MemoryManagementUnit import MemoryManagementUnit
+from src.memoryManagement.MemoryManagementUnit import MemoryManagementUnit
 from src.hardware.Memory import Memory
 from src.process.instructions.Add import Add
 from src.process.Program import Program

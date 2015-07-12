@@ -4,7 +4,7 @@ from src.hardware.Cpu import Cpu
 from src.hardware.HardDisk import HardDisk
 from src.hardware.Memory import Memory
 from src.kernel.Kernel    import Kernel
-from src.kernel.memoryManagement.MemoryManagementUnit import MemoryManagementUnit
+from src.memoryManagement.MemoryManagementUnit import MemoryManagementUnit
 from src.process.Program import Program
 from src.process.instructions.Print import Print
 

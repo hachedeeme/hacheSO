@@ -12,4 +12,7 @@ class Block():
         return mem_dir in range(self.base, self.last_dir())
     
     def last_dir(self):
-        return self.base + self.limit - 1 
+        return self.base + self.limit - 1
+    
+    def satisfy(self, limit):
+        return self.limit >= limit

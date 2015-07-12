@@ -12,7 +12,7 @@
 ## + free_direction(Integer)....: Free the direction parameter.
 ## + free(Integer,Integer)......: Free a block of memory, fist parameter base_dir, second parameter limit.  
 
-from src.kernel.memoryManagement.continousAllocation.Block import Block
+from src.memoryManagement.continousAllocation.Block import Block
 
 class Memory:
     def __init__(self, memory_size):

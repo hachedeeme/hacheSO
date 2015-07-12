@@ -7,7 +7,7 @@ from src.hardware.IOdevices.Console import Console
 from src.hardware.IOdevices.IODevice import IODevice
 from src.hardware.Memory   import Memory
 from src.kernel.InterruptionManager import InterruptionManager
-from src.kernel.memoryManagement.MemoryManagementUnit    import MemoryManagementUnit
+from src.memoryManagement.MemoryManagementUnit    import MemoryManagementUnit
 from src.kernel.interruptions.NewPcb import NewPcb
 from src.process.Pcb import Pcb
 from src.process.Program import Program
@@ -92,7 +92,7 @@ scheduling_policy = Fifo()
 
 k = Kernel(cpu, mmu, hard_disk, scheduling_policy)
 k = Kernel(cpu, mmu, hard_disk)
-k.start()
+#k.start()
 
 pro = Program('p1')
 pro.add_instruction(Add(1,2))

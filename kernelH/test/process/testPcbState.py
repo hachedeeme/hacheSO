@@ -1,6 +1,7 @@
 import unittest
 
-from src.process.PcbState import *
+from src.process.PcbState import New, Ready, Running, Finish, IOState
+
 
 class TestPcbState(unittest.TestCase):
         

@@ -1,6 +1,6 @@
 import unittest
 
-from src.kernel.memoryManagement.continousAllocation.Block import Block
+from src.memoryManagement.continousAllocation.Block import Block
 
 
 class TestBlock(unittest.TestCase):
