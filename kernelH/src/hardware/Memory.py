@@ -9,8 +9,9 @@
 ## + load(Program)..............: Load a program in memory and return the first direction
 ##                                where the program start. 
 ## + usedSpace()................: Returns the space use of the memory.
+## + get_free_blocks()..........: Get the free blocks list of the memory.
+## + free(Integer,Integer)......: Free a block of memory, fist parameter base_dir, second parameter limit.
 ## + free_direction(Integer)....: Free the direction parameter.
-## + free(Integer,Integer)......: Free a block of memory, fist parameter base_dir, second parameter limit.  
 
 from src.memoryManagement.continousAllocation.Block import Block
 
@@ -53,32 +54,6 @@ class Memory:
     def is_use_direction(self, dir_mem):
         return self.data[dir_mem]["used"]
         
-    def get_free_blocks(self):
-        free_blocks   = []
-        base_dir      = 0
-        limit_counter = 0
-        count = False
-        
-        for index_dir in range(0, self.size):
-            if count:
-                if self.is_use_direction(index_dir):# | index_dir == self.size:
-                    free_blocks.append(Block(base_dir, limit_counter))
-                    base_dir = 0
-                    limit_counter = 0
-                    count = False
-                else:
-                    limit_counter += 1
-                    
-            elif not self.is_use_direction(index_dir):
-                count = True
-                base_dir = index_dir
-                limit_counter = 1
-        
-        if count:
-            free_blocks.append(Block(base_dir, limit_counter))
-        
-        return free_blocks  
-      
     def __str__(self):
         str_mem = ""
         for index_dir in range(0, self.size):
