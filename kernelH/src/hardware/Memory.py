@@ -9,24 +9,26 @@
 ## + load(Program)..............: Load a program in memory and return the first direction
 ##                                where the program start. 
 ## + usedSpace()................: Returns the space use of the memory.
+## + free_direction(Integer)....: Free the direction parameter.
+## + free(Integer,Integer)......: Free a block of memory, fist parameter base_dir, second parameter limit.  
+
+from src.kernel.memoryManagement.continousAllocation.Block import Block
 
 class Memory:
     def __init__(self, memory_size):
         self.data = {}
         self.size = memory_size
         self.current_dir = 0
+        for index_dir in range(0, self.size):
+            self.data[index_dir] = {"used":False, "data":None}
 
-    # Read the direction dir_mem of the memory and returns the
-    # instruction located on it.
     def read(self, dir_mem):
-        return self.data[dir_mem]
+        return self.data[dir_mem]["data"]
 
-    # Write an instruction in the direction dir_mem of the memory.
     def write(self, dir_mem, instruction):
-        self.data[dir_mem] = instruction
+        self.data[dir_mem]["data"] = instruction
+        self.data[dir_mem]["used"] = True
 
-    # Load a program in memory and return the first direction
-    # where the program start. 
     def load(self, program):
         first_dir = self.current_dir
         for instruction in program.instructions:
@@ -34,6 +36,60 @@ class Memory:
             self.current_dir += 1
         return first_dir
     
-    # Returns the space use of the memory.
     def used_space(self):
-        return len(self.data)
+        count = 0
+        for index_dir in range(0, self.size):
+            if self.data[index_dir]["used"]:
+                count += 1
+        return count
+    
+    def free(self, base_dir, limit):
+        for current_dir in range(base_dir, base_dir + limit):
+            self.free_direction(current_dir)
+    
+    def free_direction(self, dir_mem):
+        self.data[dir_mem] = {"used":False, "data":None}
+    
+    def is_use_direction(self, dir_mem):
+        return self.data[dir_mem]["used"]
+        
+    def get_free_blocks(self):
+        free_blocks   = []
+        base_dir      = 0
+        limit_counter = 0
+        count = False
+        
+        for index_dir in range(0, self.size):
+            if count:
+                if self.is_use_direction(index_dir):# | index_dir == self.size:
+                    free_blocks.append(Block(base_dir, limit_counter))
+                    base_dir = 0
+                    limit_counter = 0
+                    count = False
+                else:
+                    limit_counter += 1
+                    
+            elif not self.is_use_direction(index_dir):
+                count = True
+                base_dir = index_dir
+                limit_counter = 1
+        
+        if count:
+            free_blocks.append(Block(base_dir, limit_counter))
+        
+        return free_blocks  
+      
+    def __str__(self):
+        str_mem = ""
+        for index_dir in range(0, self.size):
+            if index_dir < 10:
+                str_mem += '000'
+            elif index_dir < 100:
+                str_mem += '00'
+            elif index_dir < 1000:
+                str_mem += '0'
+            str_mem += str(index_dir) + ' { '
+            str_mem += 'used: ' + str(self.data[index_dir]["used"]) + ' '
+            str_mem += 'data: ' + str(self.data[index_dir]["data"]) + ' }\n'
+        return str_mem
+

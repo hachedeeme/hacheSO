@@ -28,6 +28,5 @@ class TestMemoryManagementUnit(unittest.TestCase):
         instruction = self.mmu.fetch_instruction(0)
         self.assertEqual(instruction, self.inst1)
         
-        
 if __name__ == '__main__':
     unittest.main()

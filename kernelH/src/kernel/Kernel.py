@@ -92,7 +92,7 @@ scheduling_policy = Fifo()
 
 k = Kernel(cpu, mmu, hard_disk, scheduling_policy)
 k = Kernel(cpu, mmu, hard_disk)
-#k.start()
+k.start()
 
 pro = Program('p1')
 pro.add_instruction(Add(1,2))

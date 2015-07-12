@@ -16,3 +16,6 @@ class Pcb:
         
     def is_finish(self):
         return self.pc == (self.base_direction + self.program_length)
+    
+    def last_dir(self):
+        return self.base_direction + self.program_length - 1

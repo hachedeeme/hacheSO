@@ -22,7 +22,7 @@ class TestMemory(unittest.TestCase):
         # The current direction of a empty memory is 0
         self.assertEqual(self.memory.current_dir, 0)
         # The memory data is empty
-        self.assertEqual(len(self.memory.data), 0)
+        self.assertEqual(self.memory.used_space(), 0)
 
     def test_load_a_program(self):
         # Load a program in memory and save the first direction in a variable.
@@ -60,6 +60,70 @@ class TestMemory(unittest.TestCase):
         
         # The used space of the memory should be 1.
         self.assertEqual(self.memory.used_space(), 1)
+        
+    def test_free_direction(self):        
+        # Write the instruction add in the direction 100.
+        self.memory.write(100, Add(1,1))
+        
+        # The used space of the memory should be 1.
+        self.assertEqual(self.memory.used_space(), 1)
+        
+        self.memory.free_direction(100)
+        
+        # The data in direction 100 should be 100.
+        self.assertEqual(self.memory.read(100), None)
+        
+        # The used space of the memory should be 0.
+        self.assertEqual(self.memory.used_space(), 0)
+        
+    def test_free_block(self):
+        program1_base = self.memory.load(self.program1)
+        program2_base = self.memory.load(self.program2)
+        
+        # The used space in memory should be 4.
+        self.assertEqual(self.memory.used_space(), 4)
+        
+        # Free the program 1.
+        self.memory.free(program1_base, self.program1.length())
+        
+        # The used space in memory should be 1.
+        self.assertEqual(self.memory.used_space(), 1)
+        
+        # Free the program 2.
+        self.memory.free(program2_base, self.program2.length())
+        
+        # The used space in memory should be 0.
+        self.assertEqual(self.memory.used_space(), 0)
+        
+    def test_get_free_block(self):
+        free_blocks = self.memory.get_free_blocks()
+        
+        self.assertEqual(len(free_blocks), 1)
+        self.assertEqual(free_blocks[0].base, 0)
+        self.assertEqual(free_blocks[0].limit, 1024)
+        
+        program1_base = self.memory.load(self.program1)
+        program2_base = self.memory.load(self.program2)
+        
+        # Free the program 1.
+        self.memory.free(program1_base, self.program1.length())
+        
+        free_blocks = self.memory.get_free_blocks()
+        
+        self.assertEqual(len(free_blocks), 2)
+        self.assertEqual(free_blocks[0].base, 0)
+        self.assertEqual(free_blocks[0].limit, 3)
+        self.assertEqual(free_blocks[1].base, 4)
+        self.assertEqual(free_blocks[1].limit, 1020)
+        
+        # Free the program 2.
+        self.memory.free(program2_base, self.program2.length())
+        
+        free_blocks = self.memory.get_free_blocks()
+        
+        self.assertEqual(len(free_blocks), 1)
+        self.assertEqual(free_blocks[0].base, 0)
+        self.assertEqual(free_blocks[0].limit, 1024)
         
 if __name__ == '__main__':
     unittest.main()
