@@ -37,7 +37,7 @@ class Kernel:
         self.console = Console()
         self.io = IODevice(self.interruption_manager)
         
-        self.clock = Clock("Cpu clock", [self.cpu,self.interruption_manager])
+        self.clock = Clock("Cpu clock", [self.cpu, self.interruption_manager])
         
     #===============  
     #=== Methods === 
