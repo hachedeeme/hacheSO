@@ -35,9 +35,5 @@ class TestKernel(unittest.TestCase):
         self.assertEqual(self.kernel.mmu.used_space(), new_pcb.program_length*2)
         self.assertEqual(new_pcb.pc, 4)
         
-    def test_run_when_all_is_fine(self):
-        self.kernel.run('program1')
-        self.assertEqual(len(self.kernel.long_term_scheduler.new_processes), 0)
-        
 if __name__ == '__main__':
     unittest.main()

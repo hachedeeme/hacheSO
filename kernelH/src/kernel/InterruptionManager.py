@@ -2,9 +2,18 @@
 class InterruptionManager():
     def __init__(self, kernel):
         self.kernel = kernel
+        self.interruptions = []
     
     def dispatch(self, interruption):
+        self.interruptions.append(interruption)
+    
+    def manage(self, interruption):
         interruption.manage(self)
+        
+    def clock_pulse(self):
+        while self.interruptions:
+            current_interruption = self.interruptions.pop(0)
+            self.manage(current_interruption)
     
     #===============#
     #=== Getters ===#    
