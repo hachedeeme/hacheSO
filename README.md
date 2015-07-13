@@ -51,6 +51,6 @@ IODevice: Es el componente que se encarga de ejecutar las instrucciones de entra
 Si al cargar un proceso a memoria no se encuentra un bloque que safisfaga al nuevo proceso, la asignación continua emplea un algoritmo compactación para generar nuevos bloques de mayor tamaño.
 
 # Cosas que faltan
-Terminar la implementación de una Shell que haga más vistoso el uso del simulador.
-Implementar un mejor sistema de log para  poder mostrar mejor los eventos del simulador cuando se estan corriendo varios programas.
-Paginación como manejo de memoria no está implementado por ahora.
+ - Terminar la implementación de una Shell que haga más vistoso el uso del simulador.
+ - Implementar un mejor sistema de log para  poder mostrar mejor los eventos del simulador cuando se estan corriendo varios programas.
+ - Paginación como manejo de memoria no está implementado por ahora.
