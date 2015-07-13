@@ -23,3 +23,11 @@ class TestBlock(unittest.TestCase):
         self.assertFalse(self.block.belongs(8))
         self.assertFalse(self.block.belongs(100))
         self.assertFalse(self.block.belongs(1000))
+        
+    def test_subtract(self):
+        new_free_block = self.block.subtract(Block(0,5))
+        self.assertEqual(new_free_block.base, 5)
+        self.assertEqual(new_free_block.limit, 3)
+        
+        new_free_block = self.block.subtract(Block(0,8))
+        self.assertEqual(new_free_block, None)

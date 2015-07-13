@@ -9,4 +9,6 @@ class FinishPcb(Interruption):
         interruption_manager.get_long_term_scheduler().add_finished_processes(self.pcb)
         interruption_manager.get_short_term_scheduler().reset_quantum()
         interruption_manager.get_cpu().remove_pcb()
+        interruption_manager.get_mmu().free(self.pcb)
+        print(interruption_manager.get_mmu().memory)
         print("Process " + str(self.pcb.pid) + " state: " + self.pcb.state.state)

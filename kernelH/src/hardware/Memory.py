@@ -37,6 +37,13 @@ class Memory:
             self.current_dir += 1
         return first_dir
     
+    def load_program_to_block(self, program, free_block):
+        self.current_dir = free_block.base
+        for instruction in program.instructions:
+            self.write(self.current_dir, instruction)
+            self.current_dir += 1
+        return Block(free_block.base, program.length())
+
     def used_space(self):
         count = 0
         for index_dir in range(0, self.size):

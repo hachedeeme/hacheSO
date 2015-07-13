@@ -20,3 +20,6 @@ class InterruptionManager():
     
     def get_io_device(self):
         return self.kernel.io
+    
+    def get_mmu(self):
+        return self.kernel.mmu

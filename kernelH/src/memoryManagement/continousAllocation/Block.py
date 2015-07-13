@@ -8,6 +8,12 @@ class Block():
     def is_free(self):
         return self.free
     
+    def subtract(self, a_block):
+        if self.limit == a_block.limit:
+            return None
+        else:
+            return Block(self.base + a_block.limit, self.limit - a_block.limit)
+    
     def belongs(self, mem_dir):
         return mem_dir in range(self.base, self.last_dir())
     

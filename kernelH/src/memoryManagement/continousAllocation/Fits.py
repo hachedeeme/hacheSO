@@ -12,6 +12,15 @@ class FirstFit():
                 return self.free_blocks.pop(block_index)
         return None
     
+    def get_assigned_block_by_base_dir(self, base):
+        for block in self.assigned_blocks:
+            if block.base == base:
+                return block
+        return None
+    
+    def remove_assigned_block(self, block):
+        self.assigned_blocks.remove(block)
+    
     def init_free_blocks_of(self, memory):
         self.free_blocks = self.get_free_blocks(memory)
     
@@ -29,7 +38,7 @@ class FirstFit():
         
         for index_dir in range(0, memory.size):
             if count:
-                if memory.is_use_direction(index_dir):# | index_dir == self.size:
+                if memory.is_use_direction(index_dir):
                     free_blocks.append(Block(base_dir, limit_counter))
                     base_dir = 0
                     limit_counter = 0
@@ -41,7 +50,7 @@ class FirstFit():
                 count = True
                 base_dir = index_dir
                 limit_counter = 1
-        
+        # The last block.
         if count:
             free_blocks.append(Block(base_dir, limit_counter))
         
