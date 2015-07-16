@@ -43,6 +43,26 @@ class Memory:
             self.write(self.current_dir, instruction)
             self.current_dir += 1
         return Block(free_block.base, program.length())
+    
+    def get_first_free_dir(self):
+        current = 0
+        for index_dir in range(0, self.size):
+            if self.data[index_dir]["used"]:
+                current += 1
+            else:
+                break
+        return current
+    
+    def move(self, a_block, mem_dir):
+        last_base_dir = a_block.base
+        a_block.set_base(mem_dir)
+        for _ in range(a_block.limit):
+            instruction = self.read(last_base_dir)
+            self.free_direction(last_base_dir)
+            self.write(mem_dir, instruction)
+            last_base_dir += 1
+            mem_dir += 1
+        return a_block
 
     def used_space(self):
         count = 0

@@ -22,3 +22,9 @@ class Block():
     
     def satisfy(self, limit):
         return self.limit >= limit
+    
+    def set_base(self, base_dir):
+        self.base = base_dir
+        
+    def __str__(self):
+        return "Block(base: %s, limit: %s)" % (self.base, self.limit)

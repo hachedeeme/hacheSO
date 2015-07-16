@@ -35,12 +35,19 @@ class TestContinousAllocation(unittest.TestCase):
         self.program4.add_instruction(Add(4, 1))
         self.program4.add_instruction(Add(4, 1))
         
+        self.program5 = Program('p5')
+        self.program5.add_instruction(Add(5, 1))
+        self.program5.add_instruction(Add(5, 1))
+        self.program5.add_instruction(Add(5, 1))
+        self.program5.add_instruction(Add(5, 1))
+        self.program5.add_instruction(Add(5, 1))
+        
         # Memory
         self.memory = Memory(1024)
         
         self.mmu = ContinousAllocation(self.memory, FirstFit())
     
-    def test_load_a_program(self):
+    def test_load_a_program_when_have_space(self):
         program1_base = self.mmu.load(self.program1)
         
         self.assertEqual(len(self.mmu.fit.free_blocks),1)
@@ -70,6 +77,42 @@ class TestContinousAllocation(unittest.TestCase):
         self.mmu.free(Pcb(0, program3_base, self.program3.length()))
         self.assertEqual(len(self.mmu.fit.free_blocks),3)
         self.assertEqual(len(self.mmu.fit.assigned_blocks), 2)
+    
+    def test_load_a_program_when_no_have_space(self):
+        self.mmu.memory = Memory(16)
+        
+        self.mmu.load(self.program1)
+        program2_base = self.mmu.load(self.program2)
+        self.mmu.load(self.program3)
+        
+        self.mmu.free(Pcb(0, program2_base, self.program2.length()))
+        self.mmu.load(self.program5)
+        
+        self.assertEqual(self.mmu.memory.used_space(), 16)
+        
+    def test_compact(self):
+        self.mmu.memory = Memory(16)
+        
+        self.mmu.compact()
+        self.assertEqual(self.mmu.memory.get_first_free_dir(), 0)
+        
+        self.mmu.load(self.program1)
+        self.assertEqual(self.mmu.memory.get_first_free_dir(), 8)
+        
+        program2_base = self.mmu.load(self.program2)
+        self.assertEqual(self.mmu.memory.get_first_free_dir(), 10)
+        
+        self.mmu.load(self.program3)
+        self.assertEqual(self.mmu.memory.get_first_free_dir(), 13)
+        
+        self.mmu.compact()
+        self.assertEqual(self.mmu.memory.get_first_free_dir(), 13)
+        
+        self.mmu.free(Pcb(0, program2_base, self.program2.length()))
+        self.assertEqual(self.mmu.memory.get_first_free_dir(), 8)
+        
+        self.mmu.compact()
+        self.assertEqual(self.mmu.memory.get_first_free_dir(), 11)
         
         
     def test_fetch_instruction(self):

@@ -18,6 +18,10 @@ class FirstFit():
                 return block
         return None
     
+    def get_sorted_assigned_blocks(self):
+        a = [] + self.assigned_blocks
+        return sorted(a, key=get_base)
+    
     def remove_assigned_block(self, block):
         self.assigned_blocks.remove(block)
     
@@ -60,7 +64,7 @@ class FirstFit():
 class BestFit(FirstFit):
     
     def init_free_blocks_of(self, memory):
-        self.free_blocks = sorted(self.get_free_blocks(memory), key=get_key)
+        self.free_blocks = sorted(self.get_free_blocks(memory), key=get_limit)
         
     def add_free_block(self, a_block):
         blocks = add_in_order(self.free_blocks, a_block, lambda x,y: x <= y)
@@ -70,7 +74,7 @@ class BestFit(FirstFit):
 class WorstFit(FirstFit):
     
     def init_free_blocks_of(self, memory):
-        self.free_blocks = sorted(self.get_free_blocks(memory), key=get_key, reverse=True)
+        self.free_blocks = sorted(self.get_free_blocks(memory), key=get_limit, reverse=True)
     
     def add_free_block(self, a_block):
         blocks = add_in_order(self.free_blocks, a_block, lambda x,y: x >= y)
@@ -79,8 +83,11 @@ class WorstFit(FirstFit):
 # ============= #
 # === UTILS === #
 # ============= #
-def get_key(a_block):
+def get_limit(a_block):
     return a_block.limit
+
+def get_base(a_block):
+    return a_block.base
     
 def add_in_order(blocks, a_block, criteria_function):
     if not blocks:

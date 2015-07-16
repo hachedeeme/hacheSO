@@ -1,8 +1,10 @@
 import unittest
 
 from src.hardware.Memory  import Memory
+from src.memoryManagement.continousAllocation.Block import Block
 from src.process.Program import Program
 from src.process.instructions.Add import Add
+
 
 class TestMemory(unittest.TestCase):
     def setUp(self):
@@ -94,6 +96,19 @@ class TestMemory(unittest.TestCase):
         
         # The used space in memory should be 0.
         self.assertEqual(self.memory.used_space(), 0)
+        
+    def test_move_block(self):
+        program1_base = self.memory.load(self.program1)
+        new_block = Block(program1_base, self.program1.length())
+        self.memory.move(new_block, 3)
+        
+        for i in range(0,3):
+            self.assertEqual(self.memory.read(i), None)
+        
+        for i in range(3,6):
+            self.assertTrue(self.memory.read(i) != None)
+            
+        self.assertEqual(new_block.base, 3)
         
 if __name__ == '__main__':
     unittest.main()
