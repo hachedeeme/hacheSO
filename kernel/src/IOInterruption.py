@@ -1,6 +1,6 @@
-from src.kernel.Log import Log
-from src.kernel.interruptions.Interruption import Interruption
-from src.process.PcbState import IOState
+from Log import Log
+from Interruption import Interruption
+from PcbState import IOState
 
 
 class IOInterruption(Interruption):

@@ -1,18 +1,28 @@
-class State:
+
+class PcbState:
     def __init__(self):
-        raise NotImplementedError("Can't create a State object'")
+        self.state
+        raise NotImplementedError("Can't create a PcbState object'")
+    
+    def __str__(self):
+        return self.state
 
-
-class New(State):
+class New(PcbState):
     def __init__(self):
-        self.state = ''
+        self.state = 'NEW'
 
-
-class Ready(State):
+class Ready(PcbState):
     def __init__(self):
-        self.state = ''
+        self.state = 'READY'
 
-
-class Running(State):
+class Running(PcbState):
     def __init__(self):
-        self.state = ''
+        self.state = 'RUNNING'
+        
+class Finish(PcbState):
+    def __init__(self):
+        self.state = 'FINISH'
+        
+class IOState(PcbState):
+    def __init__(self):
+        self.state = 'IO'

@@ -37,7 +37,7 @@ class Kernel:
         self.console = Console()
         self.io = IODevice(self.interruption_manager)
         
-        self.clock = Clock("Cpu clock", [self.cpu, self.interruption_manager])
+        self.clock = Clock("Cpu - IntManager clock", [self.cpu, self.interruption_manager])
         
     #===============  
     #=== Methods === 
@@ -74,4 +74,8 @@ class Kernel:
     def start(self):
         self.clock.start()
         self.io.start()
+        
+    def stop(self):
+        self.clock.stop()
+        self.io.clock.stop()
         

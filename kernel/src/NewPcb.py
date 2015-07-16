@@ -1,5 +1,5 @@
-from src.kernel.Log import Log
-from src.kernel.interruptions.Interruption import Interruption
+from Log import Log
+from Interruption import Interruption
 
 
 class NewPcb(Interruption):

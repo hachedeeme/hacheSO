@@ -1,7 +1,7 @@
-from Memory import Memory
+
+
 from Disk import Disk
-
-
+from Memory import Memory
 class DeviceManager:
     def __init__(self):
         self.memory = Memory()

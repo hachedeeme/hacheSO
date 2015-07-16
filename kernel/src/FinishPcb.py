@@ -1,6 +1,6 @@
-from src.kernel.Log import Log
-from src.kernel.interruptions.Interruption import Interruption
-from src.process.PcbState import Finish
+from Log import Log
+from Interruption import Interruption
+from PcbState import Finish
 
 
 class FinishPcb(Interruption):

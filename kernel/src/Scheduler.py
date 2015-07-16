@@ -1,20 +1,11 @@
-import Queue
+## Scheduler
+## - ready_queue(Queue(Pcb))..: Queue of the system's Pcbs.
+##
+## + choose_new_process().....: Choose a Pcb from the ready Queue.
 
-
-class LongTermScheduler:
-	def __init__(self, ready_queue):
-		self.new_processes = []
-		self.ready_queue = ready_queue
-
-	def add_new_process(self, a_pcb):
-		self.new_processes.append(a_pcb)
+class Scheduler:
+	def __init__(self, queue):
+		self.queue = queue
 
 	def choose_new_process(self):
-		# This method chose only the firs pcb
-		if self.new_processes:
-			self.ready_queue.put(self.new_processes[0])
-
-
-class ShortTermScheduler:
-	def __init__(self, ready_queue):
-		self.ready_queue = ready_queue
+		raise NotImplementedError("Please Implement this method")

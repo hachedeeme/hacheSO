@@ -1,7 +1,7 @@
 import threading
 import time
 
-from src.kernel.Log import Log
+from Log import Log
 
 
 class Clock(threading.Thread):

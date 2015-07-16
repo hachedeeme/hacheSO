@@ -1,8 +1,8 @@
-from src.kernel.Log import Log
-from src.kernel.interruptions.FinishPcb import FinishPcb
-from src.kernel.interruptions.IOInterruption import IOInterruption
-from src.kernel.interruptions.TimeOut import TimeOut
-from src.process.PcbState import Running
+from Log import Log
+from FinishPcb import FinishPcb
+from IOInterruption import IOInterruption
+from TimeOut import TimeOut
+from PcbState import Running
 
 
 class Cpu(object):

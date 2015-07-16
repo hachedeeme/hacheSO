@@ -1,6 +1,6 @@
-from src.kernel.Log import Log
-from src.kernel.interruptions.Interruption import Interruption
-from src.process.PcbState import Ready
+from Interruption import Interruption
+from Log import Log
+from PcbState import Ready
 
 
 class TimeOutInIO(Interruption):

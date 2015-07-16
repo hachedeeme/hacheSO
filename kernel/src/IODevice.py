@@ -1,9 +1,8 @@
-from src.hardware.Clock import Clock
-from src.kernel.Log import Log
-from src.kernel.interruptions.FinishPcbInIO import FinishPcbInIO
-from src.kernel.interruptions.TimeOutInIO import TimeOutInIO
-from src.process.PcbState import IOState
-
+from Clock import Clock
+from Log import Log
+from FinishPcbInIO import FinishPcbInIO
+from TimeOutInIO import TimeOutInIO
+from PcbState import IOState
 
 class IODevice():
     def __init__(self, interruption_manager):

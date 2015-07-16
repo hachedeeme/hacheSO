@@ -1,15 +1,14 @@
-from src.hardware.Cpu import Cpu
-from src.hardware.HardDisk import HardDisk
-from src.hardware.Memory import Memory
-from src.kernel.Kernel import Kernel
-from src.kernel.Shell import SheelH
-from src.memoryManagement.continousAllocation.ContinousAllocation import ContinousAllocation
-from src.memoryManagement.continousAllocation.Fits import BestFit
-from src.process.Program import Program
-from src.process.instructions.Add import Add
-from src.process.instructions.Print import Print
-from src.scheduling.policies.Fifo import Fifo
-
+from Add import Add
+from ContinousAllocation import ContinousAllocation
+from Cpu import Cpu
+from Fifo import Fifo
+from Fits import BestFit
+from HardDisk import HardDisk
+from Kernel import Kernel
+from Memory import Memory
+from Print import Print
+from Program import Program
+from Shell import SheelH
 
 memory = Memory(32)
 mmu    = ContinousAllocation(memory, BestFit())
@@ -48,10 +47,5 @@ pro3.add_instruction(Print("?", k.console))
 k.save_program(pro)
 k.save_program(pro2)
 k.save_program(pro3)
-
-
-k.run('program1')
-k.run('program2')
-k.run('program3')
 
 shell.cmdloop()

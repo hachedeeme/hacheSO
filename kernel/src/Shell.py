@@ -1,6 +1,6 @@
 import cmd
 
-from src.kernel.Log import Log
+from Log import Log
 
 class SheelH(cmd.Cmd):
     prompt = "hache@so:~$ "
