@@ -4,7 +4,7 @@ class MemoryManagementUnit():
     def __init__(self, memory):
         self.memory = memory
         
-    def fetch_instruction(self, dir_mem):
+    def fetch_instruction(self, pcb_id, dir_mem):
         return self.memory.read(dir_mem)
     
     def load(self, program):

@@ -31,7 +31,18 @@ class SheelH(cmd.Cmd):
         else:
             print("Execute command need a program name")
             
+    def do_finisheds(self,arg):
+        sch = self.kernel.long_term_scheduler
+        for pcb in sch.finished_processes:
+            print(" - Process ID: " + str(pcb.pid))
+            
+    def do_programs(self, arg):
+        hd = self.kernel.hard_disk
+        print("List of programs: ")
+        for program in hd.programs.keys():
+            print(" - " + program)
+            
     def do_exit(self, arg):
-        print("Stop")
+        print("Bye Bye")
         self.kernel.stop()
         return True

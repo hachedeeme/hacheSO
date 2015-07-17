@@ -25,7 +25,7 @@ class TestMemoryManagementUnit(unittest.TestCase):
         pass
         
     def test_fetch_instruction(self):
-        instruction = self.mmu.fetch_instruction(0)
+        instruction = self.mmu.fetch_instruction(0,0)
         self.assertEqual(instruction, self.inst1)
         
 if __name__ == '__main__':

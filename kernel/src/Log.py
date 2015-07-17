@@ -38,7 +38,7 @@ class Log():
         self.memory_state_counter += 1
     
     def print_interruption(self, string):
-        self.general += self.print_ln(string, orange)
+        self.general += self.print_ln(string, pink)
         self.interruptions += self.print_ln("Interruption counter: " + str(self.interruptions_counter))
         self.interruptions += self.print_ln(string)
         self.interruptions_counter += 1

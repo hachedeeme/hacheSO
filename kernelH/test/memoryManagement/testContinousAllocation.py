@@ -116,7 +116,7 @@ class TestContinousAllocation(unittest.TestCase):
         
         
     def test_fetch_instruction(self):
-        instruction = self.mmu.fetch_instruction(0)
+        instruction = self.mmu.fetch_instruction(0,0)
         self.assertEqual(instruction, None)
         
 if __name__ == '__main__':
