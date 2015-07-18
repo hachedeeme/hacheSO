@@ -4,6 +4,7 @@ from FinishPcbInIO import FinishPcbInIO
 from TimeOutInIO import TimeOutInIO
 from PcbState import IOState
 
+
 class IODevice():
     def __init__(self, interruption_manager):
         self.io_queue    = []

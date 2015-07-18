@@ -60,7 +60,7 @@ class Kernel:
     
     def create_pcb_of(self, a_program):
         # load the program in memory
-        program_counter = self.mmu.load(a_program)
+        program_counter = self.mmu.load(a_program, self.pids)
         
         # create the new Pcb with the current id
         new_pcb = Pcb(self.pids, program_counter, a_program.length())

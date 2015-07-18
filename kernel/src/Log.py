@@ -31,25 +31,31 @@ class Log():
     io  = ""
     io_counter = 1
     
+    debug_mode = False
+    
     def print_memory_state(self, memory):
+        if self.debug_mode: print(memory)
         self.general += self.print_ln(memory, blue)
         self.memory  += self.print_ln("Memory State: " + str(self.memory_state_counter))
         self.memory  += self.print_ln(memory)
         self.memory_state_counter += 1
     
     def print_interruption(self, string):
-        self.general += self.print_ln(string, pink)
+        if self.debug_mode: print(string)
+        self.general += self.print_ln(string, orange)
         self.interruptions += self.print_ln("Interruption counter: " + str(self.interruptions_counter))
         self.interruptions += self.print_ln(string)
         self.interruptions_counter += 1
         
     def print_cpu(self, string):
+        if self.debug_mode: print(string)
         self.general += self.print_ln(string, green)
         self.cpu += self.print_ln("Cpu instruction executed" + str(self.cpu_counter))
         self.cpu += self.print_ln(string)
         self.cpu_counter += 1
         
     def print_io(self, string):
+        if self.debug_mode: print(string)
         self.general += self.print_ln(string, red)
         self.io += self.print_ln("IO instruction executed" + str(self.io_counter))
         self.io += self.print_ln(string)
@@ -62,6 +68,7 @@ class Log():
         return color + str(obj)  + end + '\n'
     
     def print_general(self, obj, color=""):
+        if self.debug_mode: print(str(obj))
         self.general += self.print_ln(obj,color)
         
     

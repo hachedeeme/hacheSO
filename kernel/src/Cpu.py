@@ -28,7 +28,7 @@ class Cpu(object):
         
         if self.have_pcb_to_execute():
             # Fetch the instruction
-            current_inst = self.mmu.fetch_instruction(self.current_pcb.pc)
+            current_inst = self.mmu.fetch_instruction(self.current_pcb.pid,self.current_pcb.pc)
             
             if not current_inst.is_IO():
                 self.current_pcb.change_state(Running())

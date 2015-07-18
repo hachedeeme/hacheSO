@@ -1,5 +1,5 @@
-from Interruption import Interruption
 from Log import Log
+from Interruption import Interruption
 from PcbState import Ready
 
 
