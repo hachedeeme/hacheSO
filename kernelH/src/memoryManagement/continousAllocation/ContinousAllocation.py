@@ -8,7 +8,7 @@ class ContinousAllocation(MemoryManagementUnit):
         self.fit = fit_strategy
         self.fit.init_free_blocks_of(self.memory)
     
-    def load(self, program):
+    def load(self, program, pid=0):
         # Choose a free block
         free_block    = self.fit.choose_free_block(program.length())
         
