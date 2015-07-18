@@ -26,9 +26,9 @@ IODevice: Es el componente que se encarga de ejecutar las instrucciones de entra
 **Clock:** El Clock es un componente que ayuda a ejecutar en simultáneo varios objetos, actualmente se utiliza para la Cpu, el IODevice y el InterruptionManager que se va a hablar de él más adelante.
 
 ## Scheduling
-**LongTermScheduler: ** Es el planificador de largo plazo, su función es elegir los nuevos procesos que se van creando y ponerlos en la cola de ready para que puedan ser seleccionados para ser ejecutados. También se encarga de terminar los procesos que ya terminaron su ejecución.
+**LongTermScheduler:** Es el planificador de largo plazo, su función es elegir los nuevos procesos que se van creando y ponerlos en la cola de ready para que puedan ser seleccionados para ser ejecutados. También se encarga de terminar los procesos que ya terminaron su ejecución.
 
-**ShortTermScheduler: **Es el planificador de corto plazo, se encarga de elegir el proceso de la cola de ready para que la cpu los ejecute. Este trabaja con varias políticas diferentes:
+**ShortTermScheduler:** Es el planificador de corto plazo, se encarga de elegir el proceso de la cola de ready para que la cpu los ejecute. Este trabaja con varias políticas diferentes:
  - **Fifo:** Primero que entra, primero que sale. Esta política solo da una rafaga de cpu a un proceso para que se ejecute. Siempre agarra el primero.
  - **RoundRobin:** Funciona como Fifo, siempre agarra el primero, pero la diferencia es que se le puede definir un número mayor de rafagas de cpu que un proceso puede estar en cpu. Este valor se denomina quantum.
 
@@ -50,7 +50,14 @@ IODevice: Es el componente que se encarga de ejecutar las instrucciones de entra
  - **WorstFit:** Devuelve el bloque de tamaño más grande. Para esto el WorstFit mantiene el orden de los bloques vacíos de mayor a menor tamaño y siempre devuelve el primero.
 Si al cargar un proceso a memoria no se encuentra un bloque que safisfaga al nuevo proceso, la asignación continua emplea un algoritmo compactación para generar nuevos bloques de mayor tamaño.
 
-# Cosas que faltan
- - Terminar la implementación de una Shell que haga más vistoso el uso del simulador.
- - Implementar un mejor sistema de log para  poder mostrar mejor los eventos del simulador cuando se estan corriendo varios programas.
- - Paginación como manejo de memoria no está implementado por ahora.
+=================================================================
+
+Hago un espacio especial en el informe para explicar un poco cómo fue que resolví el tema de la Paginación en el trabajo, que era lo último que me faltaba hacer:
+
+Como el trabajo no está acoplado a una sola forma de manejo de memoria, pude cambiar la configuración del Kernel fácilmente para que use la nueva MMU implementada, osea Paginación, ahora se puede usar tanto paginación como asignación continua. 
+A continuación voy a explicar brevemente y a grandes rasgos cómo funciona mi estrategia de Paginación diciendo cómo se crea y cómo funciona su interfaz:
+
+Una MMU **Paging** se crea con la memoria que va a manejar y un tamaño de página para definir las páginas en las que se va a “dividir” la memoria, también tiene una tabla de páginas (**PageTable**) que es la que divide la memoria en marcos y lleva la cuenta de los procesos que estan en memoria con sus respectivas páginas donde fueron asignados por la MMU de paginación. 
+En el momento de hacer un fetch de instrucción, la **Paging** con la ayuda de la tabla de páginas traducen la direccion logica pedida por la direccion física correspondiente para devolver la instrucción actual desde memoria.
+Cuando se carga un programa, se pide una cantidad determinada de páginas que depende de cuantas instrucciones tenga el programa que se está cargando y del tamaño de página definido, la tabla de páginas registra el futuro proceso con sus respectivas páginas asignadas y luego el programa es cargado en memoria según las páginas que se le asignaron.
+Cuando se quiere liberar un proceso de la memoria, se obtiene las páginas asignadas a ese proceso y luego se va borrando la información que tiene la memoria de cada una de las páginas, luego las páginas que fueron desasignadas se tienen nuevamente en cuenta para los procesos que se corran en el futuro.
